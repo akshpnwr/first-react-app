@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import './App.css';
+import cs from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -58,18 +57,19 @@ class App extends Component {
   };
 
   render() {
-    const StyleButton = styled.button`
-      border: 1px solid black;
-      background-color: ${(props) => (props.alt ? 'red' : 'green')};
-      color: white;
-      padding: 10px;
-      cursor: pointer;
-      &:hover {
-        background-color: ${(props) => (props.alt ? 'salmon' : 'blue')};
-      }
-    `;
+    // const StyleButton = styled.button`
+    //   border: 1px solid black;
+    //   background-color: ${(props) => (props.alt ? 'red' : 'green')};
+    //   color: white;
+    //   padding: 10px;
+    //   cursor: pointer;
+    //   &:hover {
+    //     background-color: ${(props) => (props.alt ? 'yellow' : 'blue')};
+    //   }
+    // `;
 
     let persons = null;
+    const btnClass = [cs.button];
 
     if (this.state.showPersons) {
       persons = (
@@ -85,23 +85,25 @@ class App extends Component {
           ))}
         </div>
       );
+
+      btnClass.push(cs.Red);
     }
 
     const classes = [];
 
-    if (this.state.person.length < 3) classes.push('blue');
-    if (this.state.person.length < 2) classes.push('bold');
+    if (this.state.person.length < 3) classes.push(cs.blue);
+    if (this.state.person.length < 2) classes.push(cs.bold);
 
     return (
-      <div className="App">
+      <div className={cs.App}>
         <h1>hi, i'm a react app</h1>
         <p className={classes.join(' ')}>Finally i'm learning react</p>
-        <StyleButton
-          alt={this.state.showPersons}
+        <button
+          className={btnClass.join(' ')}
           onClick={this.togglePersonsHandler}
         >
           Toggle persons
-        </StyleButton>
+        </button>
         {persons}
       </div>
     );
