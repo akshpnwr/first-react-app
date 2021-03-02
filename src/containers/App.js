@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cs from './App.css';
-import Person from './Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -57,53 +58,33 @@ class App extends Component {
   };
 
   render() {
-    // const StyleButton = styled.button`
-    //   border: 1px solid black;
-    //   background-color: ${(props) => (props.alt ? 'red' : 'green')};
-    //   color: white;
-    //   padding: 10px;
-    //   cursor: pointer;
-    //   &:hover {
-    //     background-color: ${(props) => (props.alt ? 'yellow' : 'blue')};
-    //   }
-    // `;
-
     let persons = null;
-    const btnClass = [cs.button];
 
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.person.map((p, index) => (
-            <Person
-              click={this.deletePersonHandler.bind(this, index)}
-              name={p.name}
-              age={p.age}
-              key={p.id}
-              changed={(e) => this.nameChangedHandler(e, p.id)}
-            />
-          ))}
-        </div>
+        <Persons
+          persons={this.state.person}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
       );
-
-      btnClass.push(cs.Red);
     }
-
-    const classes = [];
-
-    if (this.state.person.length < 3) classes.push(cs.blue);
-    if (this.state.person.length < 2) classes.push(cs.bold);
 
     return (
       <div className={cs.App}>
-        <h1>hi, i'm a react app</h1>
+        <Cockpit
+          person={this.state.person}
+          showPersons={this.state.showPersons}
+          clicked={this.togglePersonsHandler}
+        />
+        {/* <h1>hi, i'm a react app</h1>
         <p className={classes.join(' ')}>Finally i'm learning react</p>
         <button
           className={btnClass.join(' ')}
           onClick={this.togglePersonsHandler}
         >
           Toggle persons
-        </button>
+        </button> */}
         {persons}
       </div>
     );
