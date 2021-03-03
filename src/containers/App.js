@@ -11,6 +11,7 @@ class App extends Component {
       { id: '103', name: 'Gnja', age: 22 },
     ],
     showPersons: false,
+    showCockpit: true,
   };
 
   // switchNameHandler(newName) {
@@ -24,11 +25,6 @@ class App extends Component {
   // }
 
   deletePersonHandler = (index) => {
-    // const person = this.state.person.slice();
-    // person.splice(index, 1);
-    // this.setState(person);
-    // const person = this.state.person;
-
     const person = [...this.state.person];
 
     person.splice(index, 1);
@@ -72,45 +68,27 @@ class App extends Component {
 
     return (
       <div className={cs.App}>
-        <Cockpit
-          person={this.state.person}
-          showPersons={this.state.showPersons}
-          clicked={this.togglePersonsHandler}
-        />
-        {/* <h1>hi, i'm a react app</h1>
-        <p className={classes.join(' ')}>Finally i'm learning react</p>
         <button
-          className={btnClass.join(' ')}
-          onClick={this.togglePersonsHandler}
+          onClick={() => {
+            this.setState({
+              showCockpit: !this.state.showCockpit,
+            });
+          }}
         >
-          Toggle persons
-        </button> */}
+          Remove cockpit
+        </button>
+
+        {this.state.showCockpit ? (
+          <Cockpit
+            personLength={this.state.person.length}
+            showPersons={this.state.showPersons}
+            clicked={this.togglePersonsHandler}
+          />
+        ) : null}
         {persons}
       </div>
     );
   }
 }
-
-// const app = (props) => {
-//   const [personsState, setPersonsState] = useState({
-//     person: [
-//       { name: 'Akash', age: 20 },
-//       { name: 'Aakriti', age: 21 },
-//       { name: 'some girl', age: 18 },
-//     ],
-//   });
-
-//   const [otherState, _] = useState('some other value');
-
-//   const switchNameHandler = () => {
-//     setPersonsState({
-//       person: [
-//         { name: 'Aksh', age: 20 },
-//         { name: 'kriti', age: 21 },
-//         { name: 'some girl', age: 18 },
-//       ],
-//     });
-//   };
-// };
 
 export default App;

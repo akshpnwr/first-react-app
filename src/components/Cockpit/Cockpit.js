@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import cp from './Cockpit.css';
 
 const cockpit = (props) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      alert('ho ho ho ');
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+      console.log('cleanup work in use effect');
+    };
+  }, []);
+
   const classes = [];
   const btnClass = [cp.button];
 
   if (props.showPersons) btnClass.push(cp.Red);
 
-  if (props.person.length < 3) classes.push(cp.blue);
-  if (props.person.length < 2) classes.push(cp.bold);
+  if (props.personLength < 3) classes.push(cp.blue);
+  if (props.personLength < 2) classes.push(cp.bold);
 
   return (
     <div>
@@ -21,4 +31,4 @@ const cockpit = (props) => {
   );
 };
 
-export default cockpit;
+export default React.memo(cockpit);
