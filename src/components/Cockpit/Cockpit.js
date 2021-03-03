@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import cp from './Cockpit.css';
 
 const cockpit = (props) => {
+  const toggleBtnRef = useRef(null);
+
   useEffect(() => {
+    toggleBtnRef.current.click();
     const timer = setTimeout(() => {
       alert('ho ho ho ');
     }, 1000);
@@ -24,7 +27,11 @@ const cockpit = (props) => {
     <div>
       <h1>hi, i'm a react app</h1>
       <p className={classes.join(' ')}>Finally i'm learning react</p>
-      <button className={btnClass.join(' ')} onClick={props.clicked}>
+      <button
+        ref={toggleBtnRef}
+        className={btnClass.join(' ')}
+        onClick={props.clicked}
+      >
         Toggle persons
       </button>
     </div>

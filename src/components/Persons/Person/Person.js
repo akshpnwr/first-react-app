@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import p from './Person.css';
 import Aux from '../../../hoc/Auxiliary';
+import withClass from '../../../hoc/withClass';
+import PropType from 'prop-types';
 
 class Person extends Component {
+  constructor(props) {
+    super(props);
+    this.inputElRef = React.createRef();
+  }
+  componentDidMount() {
+    this.inputElRef.current.focus();
+  }
+
   render() {
     return (
       <Aux>
@@ -12,6 +22,7 @@ class Person extends Component {
         <p>{this.props.children}</p>
         <input
           type="text"
+          ref={this.inputElRef}
           value={this.props.name}
           onChange={this.props.change}
         />
@@ -20,4 +31,11 @@ class Person extends Component {
   }
 }
 
-export default Person;
+Person.propTypes = {
+  click: PropType.func,
+  name: PropType.string,
+  age: PropType.number,
+  change: PropType.func,
+};
+
+export default withClass(Person, p.Person);
