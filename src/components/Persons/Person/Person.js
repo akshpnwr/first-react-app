@@ -3,6 +3,7 @@ import p from './Person.css';
 import Aux from '../../../hoc/Auxiliary';
 import withClass from '../../../hoc/withClass';
 import PropType from 'prop-types';
+import AuthContext from '../../../context/auth-context';
 
 class Person extends Component {
   constructor(props) {
@@ -13,9 +14,17 @@ class Person extends Component {
     this.inputElRef.current.focus();
   }
 
+  static contextType = AuthContext;
+
   render() {
     return (
       <Aux>
+        {this.context.authenticated ? (
+          <p>Authenticated</p>
+        ) : (
+          <p>Log in please</p>
+        )}
+
         <p onClick={this.props.click}>
           I'm {this.props.name} and i'm {this.props.age} years old.
         </p>
